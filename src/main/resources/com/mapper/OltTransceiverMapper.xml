@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OltTransceiverMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.OltTransceiver">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="port_name" jdbcType="VARCHAR" property="portName" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="temperature" jdbcType="INTEGER" property="temperature" />
+    <result column="supply_voltage" jdbcType="INTEGER" property="supplyVoltage" />
+    <result column="channel_1_type" jdbcType="INTEGER" property="channel1Type" />
+    <result column="channel_1_tx_bias" jdbcType="INTEGER" property="channel1TxBias" />
+    <result column="channel_1_tx_power" jdbcType="INTEGER" property="channel1TxPower" />
+    <result column="channel_1_idle_rssi" jdbcType="INTEGER" property="channel1IdleRssi" />
+    <result column="channel_2_type" jdbcType="INTEGER" property="channel2Type" />
+    <result column="channel_2_tx_bias" jdbcType="INTEGER" property="channel2TxBias" />
+    <result column="channel_2_tx_power" jdbcType="INTEGER" property="channel2TxPower" />
+    <result column="channel_2_idle_rssi" jdbcType="INTEGER" property="channel2IdleRssi" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="module_sub_type" jdbcType="VARCHAR" property="moduleSubType" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.pojo.OltTransceiver">
+    insert into olt_transceiver (id, dev_ip, port_name, 
+      collect_time, temperature, supply_voltage, 
+      channel_1_type, channel_1_tx_bias, channel_1_tx_power, 
+      channel_1_idle_rssi, channel_2_type, channel_2_tx_bias, 
+      channel_2_tx_power, channel_2_idle_rssi, module_type, 
+      module_sub_type)
+    values (#{id,jdbcType=BIGINT}, #{devIp,jdbcType=VARCHAR}, #{portName,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{temperature,jdbcType=INTEGER}, #{supplyVoltage,jdbcType=INTEGER}, 
+      #{channel1Type,jdbcType=INTEGER}, #{channel1TxBias,jdbcType=INTEGER}, #{channel1TxPower,jdbcType=INTEGER}, 
+      #{channel1IdleRssi,jdbcType=INTEGER}, #{channel2Type,jdbcType=INTEGER}, #{channel2TxBias,jdbcType=INTEGER}, 
+      #{channel2TxPower,jdbcType=INTEGER}, #{channel2IdleRssi,jdbcType=INTEGER}, #{moduleType,jdbcType=INTEGER}, 
+      #{moduleSubType,jdbcType=VARCHAR})
+  </insert>
+<insert id="batchInsert" parameterType="com.pojo.OltTransceiver">
+       insert into ${tableName} (id, dev_ip, port_name, 
+      collect_time, temperature, supply_voltage, 
+      channel_1_type, channel_1_tx_bias, channel_1_tx_power, 
+      channel_1_idle_rssi, channel_2_type, channel_2_tx_bias, 
+      channel_2_tx_power, channel_2_idle_rssi, module_type, 
+      module_sub_type)
+       values
+       <foreach collection="trafficDatas" item="trafficData" separator=",">
+           (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.temperature,jdbcType=INTEGER}, #{trafficData.supplyVoltage,jdbcType=INTEGER}, 
+      #{trafficData.channel1Type,jdbcType=INTEGER}, #{trafficData.channel1TxBias,jdbcType=INTEGER}, #{trafficData.channel1TxPower,jdbcType=INTEGER}, 
+      #{trafficData.channel1IdleRssi,jdbcType=INTEGER}, #{trafficData.channel2Type,jdbcType=INTEGER}, #{trafficData.channel2TxBias,jdbcType=INTEGER}, 
+      #{trafficData.channel2TxPower,jdbcType=INTEGER}, #{trafficData.channel2IdleRssi,jdbcType=INTEGER}, #{trafficData.moduleType,jdbcType=INTEGER}, 
+      #{trafficData.moduleSubType,jdbcType=VARCHAR})
+       </foreach>
+   </insert>
+</mapper>

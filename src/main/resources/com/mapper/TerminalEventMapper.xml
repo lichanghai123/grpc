@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TerminalEventMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.TerminalEvent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="event_time" jdbcType="TIMESTAMP" property="eventTime" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="terminal_type" jdbcType="INTEGER" property="terminalType" />
+    <result column="browse_tool" jdbcType="VARCHAR" property="browseTool" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from terminal_event
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TerminalEvent">
+    insert into terminal_event (id, event_time, client_mac_address, 
+      terminal_type, browse_tool, dev_ip, 
+      collect_time)
+    values (#{id,jdbcType=BIGINT}, #{eventTime,jdbcType=TIMESTAMP}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{terminalType,jdbcType=INTEGER}, #{browseTool,jdbcType=VARCHAR}, #{devIp,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP})
+  </insert>
+   <insert id="batchInsert" parameterType="com.pojo.TerminalEvent">
+        insert into ${tableName} (id, event_time, client_mac_address, 
+      terminal_type, browse_tool, dev_ip, 
+      collect_time
+      )
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.eventTime,jdbcType=TIMESTAMP}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.terminalType,jdbcType=INTEGER}, #{trafficData.browseTool,jdbcType=VARCHAR}, #{trafficData.devIp,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TerminalEvent">
+    update terminal_event
+    set event_time = #{eventTime,jdbcType=TIMESTAMP},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      terminal_type = #{terminalType,jdbcType=INTEGER},
+      browse_tool = #{browseTool,jdbcType=VARCHAR},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, event_time, client_mac_address, terminal_type, browse_tool, dev_ip, collect_time
+    from terminal_event
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, event_time, client_mac_address, terminal_type, browse_tool, dev_ip, collect_time
+    from terminal_event
+  </select>
+</mapper>

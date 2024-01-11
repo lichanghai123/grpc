@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.HttpKpiIndexMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.HttpKpiIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_location" jdbcType="VARCHAR" property="clientLocation" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="main_type" jdbcType="INTEGER" property="mainType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+    <result column="get_succ_cnt" jdbcType="INTEGER" property="getSuccCnt" />
+    <result column="get_cnt" jdbcType="INTEGER" property="getCnt" />
+    <result column="fg_delay_avg" jdbcType="REAL" property="fgDelayAvg" />
+    <result column="fg_succ_cnt" jdbcType="INTEGER" property="fgSuccCnt" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from http_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.HttpKpiIndex">
+    insert into http_kpi_index (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      get_succ_cnt, get_cnt, fg_delay_avg, 
+      fg_succ_cnt, dev_ip, collect_time, 
+      start_time, end_time)
+    values (#{id,jdbcType=BIGINT}, #{clientLocation,jdbcType=VARCHAR}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{mainType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER}, 
+      #{getSuccCnt,jdbcType=INTEGER}, #{getCnt,jdbcType=INTEGER}, #{fgDelayAvg,jdbcType=REAL}, 
+      #{fgSuccCnt,jdbcType=INTEGER}, #{devIp,jdbcType=VARCHAR}, #{collectTime,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.HttpKpiIndex">
+        insert into ${tableName} (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      get_succ_cnt, get_cnt, fg_delay_avg, 
+      fg_succ_cnt, dev_ip, collect_time,start_time, end_time
+      )
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.clientLocation,jdbcType=VARCHAR}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.uuid,jdbcType=VARCHAR}, #{trafficData.mainType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER}, 
+      #{trafficData.getSuccCnt,jdbcType=INTEGER}, #{trafficData.getCnt,jdbcType=INTEGER}, #{trafficData.fgDelayAvg,jdbcType=REAL}, 
+      #{trafficData.fgSuccCnt,jdbcType=INTEGER}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.collectTime,jdbcType=TIMESTAMP},
+      #{trafficData.startTime,jdbcType=TIMESTAMP}, #{trafficData.endTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.HttpKpiIndex">
+    update http_kpi_index
+    set client_location = #{clientLocation,jdbcType=VARCHAR},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      main_type = #{mainType,jdbcType=INTEGER},
+      sub_type = #{subType,jdbcType=INTEGER},
+      get_succ_cnt = #{getSuccCnt,jdbcType=INTEGER},
+      get_cnt = #{getCnt,jdbcType=INTEGER},
+      fg_delay_avg = #{fgDelayAvg,jdbcType=REAL},
+      fg_succ_cnt = #{fgSuccCnt,jdbcType=INTEGER},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, get_succ_cnt, 
+    get_cnt, fg_delay_avg, fg_succ_cnt, dev_ip, collect_time, start_time, end_time
+    from http_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, get_succ_cnt, 
+    get_cnt, fg_delay_avg, fg_succ_cnt, dev_ip, collect_time, start_time, end_time
+    from http_kpi_index
+  </select>
+</mapper>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TcpKpiIndexMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.TcpKpiIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_location" jdbcType="VARCHAR" property="clientLocation" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="main_type" jdbcType="INTEGER" property="mainType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+    <result column="app_identify" jdbcType="INTEGER" property="appIdentify" />
+    <result column="flow" jdbcType="VARCHAR" property="flow" />
+    <result column="up_mfr_avg" jdbcType="REAL" property="upMfrAvg" />
+    <result column="up_mfr_max" jdbcType="REAL" property="upMfrMax" />
+    <result column="down_mfr_avg" jdbcType="REAL" property="downMfrAvg" />
+    <result column="down_mfr_max" jdbcType="REAL" property="downMfrMax" />
+    <result column="up_pp_cnt" jdbcType="BIGINT" property="upPpCnt" />
+    <result column="up_upl_cnt" jdbcType="BIGINT" property="upUplCnt" />
+    <result column="up_dpl_cnt" jdbcType="BIGINT" property="upDplCnt" />
+    <result column="up_dup_cnt" jdbcType="BIGINT" property="upDupCnt" />
+    <result column="up_ooo_cnt" jdbcType="BIGINT" property="upOooCnt" />
+    <result column="down_dup_cnt" jdbcType="BIGINT" property="downDupCnt" />
+    <result column="down_ooo_cnt" jdbcType="BIGINT" property="downOooCnt" />
+    <result column="down_pp_cnt" jdbcType="BIGINT" property="downPpCnt" />
+    <result column="down_upl_cnt" jdbcType="BIGINT" property="downUplCnt" />
+    <result column="down_dpl_cnt" jdbcType="BIGINT" property="downDplCnt" />
+    <result column="up_drtt_avg" jdbcType="REAL" property="upDrttAvg" />
+    <result column="up_drtt_max" jdbcType="REAL" property="upDrttMax" />
+    <result column="up_drtt_min" jdbcType="REAL" property="upDrttMin" />
+    <result column="up_drtj_avg" jdbcType="REAL" property="upDrtjAvg" />
+    <result column="up_drtj_max" jdbcType="REAL" property="upDrtjMax" />
+    <result column="down_drtt_avg" jdbcType="REAL" property="downDrttAvg" />
+    <result column="down_drtt_max" jdbcType="REAL" property="downDrttMax" />
+    <result column="down_drtt_min" jdbcType="REAL" property="downDrttMin" />
+    <result column="down_drtj_avg" jdbcType="REAL" property="downDrtjAvg" />
+    <result column="down_drtj_max" jdbcType="REAL" property="downDrtjMax" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="up_send_bytes_cnt" jdbcType="INTEGER" property="upSendBytesCnt" />
+    <result column="down_recv_bytes_cnt" jdbcType="INTEGER" property="downRecvBytesCnt" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="up_drtj_cnt1" jdbcType="INTEGER" property="upDrtjCnt1" />
+    <result column="up_drtj_cnt2" jdbcType="INTEGER" property="upDrtjCnt2" />
+    <result column="up_drtj_cnt3" jdbcType="INTEGER" property="upDrtjCnt3" />
+    <result column="up_drtj_cnt4" jdbcType="INTEGER" property="upDrtjCnt4" />
+    <result column="up_drtj_cnt5" jdbcType="INTEGER" property="upDrtjCnt5" />
+    <result column="down_drtj_cnt1" jdbcType="INTEGER" property="downDrtjCnt1" />
+    <result column="down_drtj_cnt2" jdbcType="INTEGER" property="downDrtjCnt2" />
+    <result column="down_drtj_cnt3" jdbcType="INTEGER" property="downDrtjCnt3" />
+    <result column="down_drtj_cnt4" jdbcType="INTEGER" property="downDrtjCnt4" />
+    <result column="down_drtj_cnt5" jdbcType="INTEGER" property="downDrtjCnt5" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcp_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TcpKpiIndex">
+    insert into tcp_kpi_index (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      app_identify, flow, up_mfr_avg, 
+      up_mfr_max, down_mfr_avg, down_mfr_max, 
+      up_pp_cnt, up_upl_cnt, up_dpl_cnt, 
+      up_dup_cnt, up_ooo_cnt, down_dup_cnt, 
+      down_ooo_cnt, down_pp_cnt, down_upl_cnt, 
+      down_dpl_cnt, up_drtt_avg, up_drtt_max, 
+      up_drtt_min, up_drtj_avg, up_drtj_max, 
+      down_drtt_avg, down_drtt_max, down_drtt_min, 
+      down_drtj_avg, down_drtj_max, dev_ip, 
+      collect_time, up_send_bytes_cnt, down_recv_bytes_cnt, 
+      start_time, end_time, up_drtj_cnt1, 
+      up_drtj_cnt2, up_drtj_cnt3, up_drtj_cnt4, 
+      up_drtj_cnt5, down_drtj_cnt1, down_drtj_cnt2, 
+      down_drtj_cnt3, down_drtj_cnt4, down_drtj_cnt5
+      )
+    values (#{id,jdbcType=BIGINT}, #{clientLocation,jdbcType=VARCHAR}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{mainType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER}, 
+      #{appIdentify,jdbcType=INTEGER}, #{flow,jdbcType=VARCHAR}, #{upMfrAvg,jdbcType=REAL}, 
+      #{upMfrMax,jdbcType=REAL}, #{downMfrAvg,jdbcType=REAL}, #{downMfrMax,jdbcType=REAL}, 
+      #{upPpCnt,jdbcType=BIGINT}, #{upUplCnt,jdbcType=BIGINT}, #{upDplCnt,jdbcType=BIGINT}, 
+      #{upDupCnt,jdbcType=BIGINT}, #{upOooCnt,jdbcType=BIGINT}, #{downDupCnt,jdbcType=BIGINT}, 
+      #{downOooCnt,jdbcType=BIGINT}, #{downPpCnt,jdbcType=BIGINT}, #{downUplCnt,jdbcType=BIGINT}, 
+      #{downDplCnt,jdbcType=BIGINT}, #{upDrttAvg,jdbcType=REAL}, #{upDrttMax,jdbcType=REAL}, 
+      #{upDrttMin,jdbcType=REAL}, #{upDrtjAvg,jdbcType=REAL}, #{upDrtjMax,jdbcType=REAL}, 
+      #{downDrttAvg,jdbcType=REAL}, #{downDrttMax,jdbcType=REAL}, #{downDrttMin,jdbcType=REAL}, 
+      #{downDrtjAvg,jdbcType=REAL}, #{downDrtjMax,jdbcType=REAL}, #{devIp,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{upSendBytesCnt,jdbcType=INTEGER}, #{downRecvBytesCnt,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{upDrtjCnt1,jdbcType=INTEGER}, 
+      #{upDrtjCnt2,jdbcType=INTEGER}, #{upDrtjCnt3,jdbcType=INTEGER}, #{upDrtjCnt4,jdbcType=INTEGER}, 
+      #{upDrtjCnt5,jdbcType=INTEGER}, #{downDrtjCnt1,jdbcType=INTEGER}, #{downDrtjCnt2,jdbcType=INTEGER}, 
+      #{downDrtjCnt3,jdbcType=INTEGER}, #{downDrtjCnt4,jdbcType=INTEGER}, #{downDrtjCnt5,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.TcpKpiIndex">
+        insert into ${tableName} (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      app_identify, flow, up_mfr_avg, 
+      up_mfr_max, down_mfr_avg, down_mfr_max, 
+      up_pp_cnt, up_upl_cnt, up_dpl_cnt, 
+      up_dup_cnt, up_ooo_cnt, down_dup_cnt, 
+      down_ooo_cnt, down_pp_cnt, down_upl_cnt, 
+      down_dpl_cnt, up_drtt_avg, up_drtt_max, 
+      up_drtt_min, up_drtj_avg, up_drtj_max, 
+      down_drtt_avg, down_drtt_max, down_drtt_min, 
+      down_drtj_avg, down_drtj_max, dev_ip, 
+      collect_time, up_send_bytes_cnt, down_recv_bytes_cnt, 
+      start_time, end_time, up_drtj_cnt1, 
+      up_drtj_cnt2, up_drtj_cnt3, up_drtj_cnt4, 
+      up_drtj_cnt5, down_drtj_cnt1, down_drtj_cnt2, 
+      down_drtj_cnt3, down_drtj_cnt4, down_drtj_cnt5)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.clientLocation,jdbcType=VARCHAR}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.uuid,jdbcType=VARCHAR}, #{trafficData.mainType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER}, 
+      #{trafficData.appIdentify,jdbcType=INTEGER}, #{trafficData.flow,jdbcType=VARCHAR}, #{trafficData.upMfrAvg,jdbcType=REAL}, 
+      #{trafficData.upMfrMax,jdbcType=REAL}, #{trafficData.downMfrAvg,jdbcType=REAL}, #{trafficData.downMfrMax,jdbcType=REAL}, 
+      #{trafficData.upPpCnt,jdbcType=BIGINT}, #{trafficData.upUplCnt,jdbcType=BIGINT}, #{trafficData.upDplCnt,jdbcType=BIGINT}, 
+      #{trafficData.upDupCnt,jdbcType=BIGINT}, #{trafficData.upOooCnt,jdbcType=BIGINT}, #{trafficData.downDupCnt,jdbcType=BIGINT}, 
+      #{trafficData.downOooCnt,jdbcType=BIGINT}, #{trafficData.downPpCnt,jdbcType=BIGINT}, #{trafficData.downUplCnt,jdbcType=BIGINT}, 
+      #{trafficData.downDplCnt,jdbcType=BIGINT}, #{trafficData.upDrttAvg,jdbcType=REAL}, #{trafficData.upDrttMax,jdbcType=REAL}, 
+      #{trafficData.upDrttMin,jdbcType=REAL}, #{trafficData.upDrtjAvg,jdbcType=REAL}, #{trafficData.upDrtjMax,jdbcType=REAL}, 
+      #{trafficData.downDrttAvg,jdbcType=REAL}, #{trafficData.downDrttMax,jdbcType=REAL}, #{trafficData.downDrttMin,jdbcType=REAL}, 
+      #{trafficData.downDrtjAvg,jdbcType=REAL}, #{trafficData.downDrtjMax,jdbcType=REAL}, #{trafficData.devIp,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.upSendBytesCnt,jdbcType=INTEGER}, #{trafficData.downRecvBytesCnt,jdbcType=INTEGER}, 
+      #{trafficData.startTime,jdbcType=TIMESTAMP}, #{trafficData.endTime,jdbcType=TIMESTAMP}, #{trafficData.upDrtjCnt1,jdbcType=INTEGER}, 
+      #{trafficData.upDrtjCnt2,jdbcType=INTEGER}, #{trafficData.upDrtjCnt3,jdbcType=INTEGER}, #{trafficData.upDrtjCnt4,jdbcType=INTEGER}, 
+      #{trafficData.upDrtjCnt5,jdbcType=INTEGER}, #{trafficData.downDrtjCnt1,jdbcType=INTEGER}, #{trafficData.downDrtjCnt2,jdbcType=INTEGER}, 
+      #{trafficData.downDrtjCnt3,jdbcType=INTEGER}, #{trafficData.downDrtjCnt4,jdbcType=INTEGER}, #{trafficData.downDrtjCnt5,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TcpKpiIndex">
+    update tcp_kpi_index
+    set client_location = #{clientLocation,jdbcType=VARCHAR},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      main_type = #{mainType,jdbcType=INTEGER},
+      sub_type = #{subType,jdbcType=INTEGER},
+      app_identify = #{appIdentify,jdbcType=INTEGER},
+      flow = #{flow,jdbcType=VARCHAR},
+      up_mfr_avg = #{upMfrAvg,jdbcType=REAL},
+      up_mfr_max = #{upMfrMax,jdbcType=REAL},
+      down_mfr_avg = #{downMfrAvg,jdbcType=REAL},
+      down_mfr_max = #{downMfrMax,jdbcType=REAL},
+      up_pp_cnt = #{upPpCnt,jdbcType=BIGINT},
+      up_upl_cnt = #{upUplCnt,jdbcType=BIGINT},
+      up_dpl_cnt = #{upDplCnt,jdbcType=BIGINT},
+      up_dup_cnt = #{upDupCnt,jdbcType=BIGINT},
+      up_ooo_cnt = #{upOooCnt,jdbcType=BIGINT},
+      down_dup_cnt = #{downDupCnt,jdbcType=BIGINT},
+      down_ooo_cnt = #{downOooCnt,jdbcType=BIGINT},
+      down_pp_cnt = #{downPpCnt,jdbcType=BIGINT},
+      down_upl_cnt = #{downUplCnt,jdbcType=BIGINT},
+      down_dpl_cnt = #{downDplCnt,jdbcType=BIGINT},
+      up_drtt_avg = #{upDrttAvg,jdbcType=REAL},
+      up_drtt_max = #{upDrttMax,jdbcType=REAL},
+      up_drtt_min = #{upDrttMin,jdbcType=REAL},
+      up_drtj_avg = #{upDrtjAvg,jdbcType=REAL},
+      up_drtj_max = #{upDrtjMax,jdbcType=REAL},
+      down_drtt_avg = #{downDrttAvg,jdbcType=REAL},
+      down_drtt_max = #{downDrttMax,jdbcType=REAL},
+      down_drtt_min = #{downDrttMin,jdbcType=REAL},
+      down_drtj_avg = #{downDrtjAvg,jdbcType=REAL},
+      down_drtj_max = #{downDrtjMax,jdbcType=REAL},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      up_send_bytes_cnt = #{upSendBytesCnt,jdbcType=INTEGER},
+      down_recv_bytes_cnt = #{downRecvBytesCnt,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      up_drtj_cnt1 = #{upDrtjCnt1,jdbcType=INTEGER},
+      up_drtj_cnt2 = #{upDrtjCnt2,jdbcType=INTEGER},
+      up_drtj_cnt3 = #{upDrtjCnt3,jdbcType=INTEGER},
+      up_drtj_cnt4 = #{upDrtjCnt4,jdbcType=INTEGER},
+      up_drtj_cnt5 = #{upDrtjCnt5,jdbcType=INTEGER},
+      down_drtj_cnt1 = #{downDrtjCnt1,jdbcType=INTEGER},
+      down_drtj_cnt2 = #{downDrtjCnt2,jdbcType=INTEGER},
+      down_drtj_cnt3 = #{downDrtjCnt3,jdbcType=INTEGER},
+      down_drtj_cnt4 = #{downDrtjCnt4,jdbcType=INTEGER},
+      down_drtj_cnt5 = #{downDrtjCnt5,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, app_identify, 
+    flow, up_mfr_avg, up_mfr_max, down_mfr_avg, down_mfr_max, up_pp_cnt, up_upl_cnt, 
+    up_dpl_cnt, up_dup_cnt, up_ooo_cnt, down_dup_cnt, down_ooo_cnt, down_pp_cnt, down_upl_cnt, 
+    down_dpl_cnt, up_drtt_avg, up_drtt_max, up_drtt_min, up_drtj_avg, up_drtj_max, down_drtt_avg, 
+    down_drtt_max, down_drtt_min, down_drtj_avg, down_drtj_max, dev_ip, collect_time, 
+    up_send_bytes_cnt, down_recv_bytes_cnt, start_time, end_time, up_drtj_cnt1, up_drtj_cnt2, 
+    up_drtj_cnt3, up_drtj_cnt4, up_drtj_cnt5, down_drtj_cnt1, down_drtj_cnt2, down_drtj_cnt3, 
+    down_drtj_cnt4, down_drtj_cnt5
+    from tcp_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, app_identify, 
+    flow, up_mfr_avg, up_mfr_max, down_mfr_avg, down_mfr_max, up_pp_cnt, up_upl_cnt, 
+    up_dpl_cnt, up_dup_cnt, up_ooo_cnt, down_dup_cnt, down_ooo_cnt, down_pp_cnt, down_upl_cnt, 
+    down_dpl_cnt, up_drtt_avg, up_drtt_max, up_drtt_min, up_drtj_avg, up_drtj_max, down_drtt_avg, 
+    down_drtt_max, down_drtt_min, down_drtj_avg, down_drtj_max, dev_ip, collect_time, 
+    up_send_bytes_cnt, down_recv_bytes_cnt, start_time, end_time, up_drtj_cnt1, up_drtj_cnt2, 
+    up_drtj_cnt3, up_drtj_cnt4, up_drtj_cnt5, down_drtj_cnt1, down_drtj_cnt2, down_drtj_cnt3, 
+    down_drtj_cnt4, down_drtj_cnt5
+    from tcp_kpi_index
+  </select>
+</mapper>

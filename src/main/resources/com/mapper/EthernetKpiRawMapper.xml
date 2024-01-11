@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.EthernetKpiRawMapper">
+    <resultMap id="BaseResultMap" type="com.pojo.EthernetKpiRaw">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="dev_ip" jdbcType="VARCHAR" property="devIp"/>
+        <result column="port_name" jdbcType="VARCHAR" property="portName"/>
+        <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime"/>
+        <result column="received_bytes" jdbcType="BIGINT" property="receivedBytes"/>
+        <result column="sent_bytes" jdbcType="BIGINT" property="sentBytes"/>
+         <result column="port_tx_pkt" jdbcType="BIGINT" property="portTxPkt"/>
+         <result column="port_rx_pkt" jdbcType="BIGINT" property="portRxPkt"/>
+         <result column="tx_discard_pkt" jdbcType="BIGINT" property="txDiscardPkt"/>
+         <result column="rx_discard_pkt" jdbcType="BIGINT" property="rxDiscardPkt"/>
+         <result column="rx_alignment_error_pkt" jdbcType="BIGINT" property="rxAlignmentErrPkt"/>
+         <result column="tx_crc_error_pkt" jdbcType="BIGINT" property="txCrcErrorPkt"/>
+         <result column="rx_crc_error_pkt" jdbcType="BIGINT" property="rxCrcErrorPkt"/>
+          <result column="tx_oversized_pkt" jdbcType="BIGINT" property="rxOversizedPkt"/>
+         <result column="rx_oversized_pkt" jdbcType="BIGINT" property="rxOversizedPkt"/>
+         <result column="tx_undersized_pkt" jdbcType="BIGINT" property="rxUndersizedPkt"/>
+         <result column="rx_undersized_pkt" jdbcType="BIGINT" property="rxUndersizedPkt"/>
+         <result column="tx_fragment_pkt" jdbcType="BIGINT" property="txFragmentPkt"/>
+         <result column="rx_fragment_pkt" jdbcType="BIGINT" property="rxFragmentPkt"/>
+         <result column="tx_jabber_pkt" jdbcType="BIGINT" property="txJabberPkt"/>
+         <result column="rx_jabber_pkt" jdbcType="BIGINT" property="rxJabberPkt"/>
+         <result column="tx_error_pkt" jdbcType="BIGINT" property="txErrorPkt"/>
+         <result column="rx_error_pkt" jdbcType="BIGINT" property="rxErrorPkt"/>
+         <result column="tx_rate" jdbcType="BIGINT" property="txRate"/>
+         <result column="rx_rate" jdbcType="BIGINT" property="rxRate"/>
+         <result column="tx_peak_rate" jdbcType="BIGINT" property="txPeakRate"/>
+         <result column="rx_peak_rate" jdbcType="BIGINT" property="rxPeakRate"/>
+    </resultMap>
+   
+    <insert id="batchInsert" parameterType="com.pojo.EthernetKpiRaw">
+        insert into ${tableName} (id, dev_ip, port_name, collect_time, received_bytes, sent_bytes,port_tx_pkt,port_rx_pkt,
+        tx_discard_pkt,rx_discard_pkt,rx_alignment_error_pkt,tx_crc_error_pkt,rx_crc_error_pkt,tx_oversized_pkt,rx_oversized_pkt,
+        tx_undersized_pkt,rx_undersized_pkt,tx_fragment_pkt,rx_fragment_pkt,tx_jabber_pkt,rx_jabber_pkt,tx_error_pkt,rx_error_pkt,tx_rate,
+        rx_rate,tx_peak_rate,rx_peak_rate)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR},
+                #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.receivedBytes,jdbcType=BIGINT}, #{trafficData.sentBytes,jdbcType=BIGINT},
+                #{trafficData.portTxPkt,jdbcType=BIGINT}, #{trafficData.portRxPkt,jdbcType=BIGINT},
+                #{trafficData.txDiscardPkt,jdbcType=BIGINT}, #{trafficData.rxDiscardPkt,jdbcType=BIGINT},
+                #{trafficData.rxAlignmentErrPkt,jdbcType=BIGINT}, #{trafficData.txCrcErrorPkt,jdbcType=BIGINT},
+                #{trafficData.rxCrcErrorPkt,jdbcType=BIGINT}, #{trafficData.txOversizedPkt,jdbcType=BIGINT},
+                 #{trafficData.rxOversizedPkt,jdbcType=BIGINT}, #{trafficData.txUndersizedPkt,jdbcType=BIGINT},
+                #{trafficData.rxUndersizedPkt,jdbcType=BIGINT}, #{trafficData.txFragmentPkt,jdbcType=BIGINT}, 
+                 #{trafficData.rxFragmentPkt,jdbcType=BIGINT},  #{trafficData.txJabberPkt,jdbcType=BIGINT}, 
+                #{trafficData.rxJabberPkt,jdbcType=BIGINT},#{trafficData.txErrorPkt,jdbcType=BIGINT},#{trafficData.rxErrorPkt,jdbcType=BIGINT},
+                 #{trafficData.txRate,jdbcType=BIGINT}, #{trafficData.rxRate,jdbcType=BIGINT},
+                  #{trafficData.txPeakRate,jdbcType=BIGINT}, #{trafficData.rxPeakRate,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+  
+</mapper>

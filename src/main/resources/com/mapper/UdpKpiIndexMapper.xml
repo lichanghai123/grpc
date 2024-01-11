@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UdpKpiIndexMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.UdpKpiIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_location" jdbcType="VARCHAR" property="clientLocation" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="main_type" jdbcType="INTEGER" property="mainType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+    <result column="app_identify" jdbcType="INTEGER" property="appIdentify" />
+    <result column="flow" jdbcType="VARCHAR" property="flow" />
+    <result column="up_mfr_avg" jdbcType="REAL" property="upMfrAvg" />
+    <result column="up_mfr_max" jdbcType="REAL" property="upMfrMax" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="down_mfr_avg" jdbcType="REAL" property="downMfrAvg" />
+    <result column="down_mfr_max" jdbcType="REAL" property="downMfrMax" />
+    <result column="up_send_bytes_cnt" jdbcType="INTEGER" property="upSendBytesCnt" />
+    <result column="down_recv_bytes_cnt" jdbcType="INTEGER" property="downRecvBytesCnt" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from udp_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.UdpKpiIndex">
+    insert into udp_kpi_index (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      app_identify, flow, up_mfr_avg, 
+      up_mfr_max, dev_ip, collect_time, 
+      down_mfr_avg, down_mfr_max, up_send_bytes_cnt, 
+      down_recv_bytes_cnt, start_time, end_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{clientLocation,jdbcType=VARCHAR}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{mainType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER}, 
+      #{appIdentify,jdbcType=INTEGER}, #{flow,jdbcType=VARCHAR}, #{upMfrAvg,jdbcType=REAL}, 
+      #{upMfrMax,jdbcType=REAL}, #{devIp,jdbcType=VARCHAR}, #{collectTime,jdbcType=TIMESTAMP}, 
+      #{downMfrAvg,jdbcType=REAL}, #{downMfrMax,jdbcType=REAL}, #{upSendBytesCnt,jdbcType=INTEGER}, 
+      #{downRecvBytesCnt,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.UdpKpiIndex">
+        insert into ${tableName} (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      app_identify, flow, up_mfr_avg, 
+      up_mfr_max, dev_ip, collect_time, 
+      down_mfr_avg, down_mfr_max, up_send_bytes_cnt, 
+      down_recv_bytes_cnt, start_time, end_time
+      )
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.clientLocation,jdbcType=VARCHAR}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.uuid,jdbcType=VARCHAR}, #{trafficData.mainType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER}, 
+      #{trafficData.appIdentify,jdbcType=INTEGER}, #{trafficData.flow,jdbcType=VARCHAR}, #{trafficData.upMfrAvg,jdbcType=REAL}, 
+      #{trafficData.upMfrMax,jdbcType=REAL}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.collectTime,jdbcType=TIMESTAMP}, 
+      #{trafficData.downMfrAvg,jdbcType=REAL}, #{trafficData.downMfrMax,jdbcType=REAL}, #{trafficData.upSendBytesCnt,jdbcType=INTEGER}, 
+      #{trafficData.downRecvBytesCnt,jdbcType=INTEGER}, #{trafficData.startTime,jdbcType=TIMESTAMP}, #{trafficData.endTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.UdpKpiIndex">
+    update udp_kpi_index
+    set client_location = #{clientLocation,jdbcType=VARCHAR},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      main_type = #{mainType,jdbcType=INTEGER},
+      sub_type = #{subType,jdbcType=INTEGER},
+      app_identify = #{appIdentify,jdbcType=INTEGER},
+      flow = #{flow,jdbcType=VARCHAR},
+      up_mfr_avg = #{upMfrAvg,jdbcType=REAL},
+      up_mfr_max = #{upMfrMax,jdbcType=REAL},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      down_mfr_avg = #{downMfrAvg,jdbcType=REAL},
+      down_mfr_max = #{downMfrMax,jdbcType=REAL},
+      up_send_bytes_cnt = #{upSendBytesCnt,jdbcType=INTEGER},
+      down_recv_bytes_cnt = #{downRecvBytesCnt,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, app_identify, 
+    flow, up_mfr_avg, up_mfr_max, dev_ip, collect_time, down_mfr_avg, down_mfr_max, up_send_bytes_cnt, 
+    down_recv_bytes_cnt, start_time, end_time
+    from udp_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, app_identify, 
+    flow, up_mfr_avg, up_mfr_max, dev_ip, collect_time, down_mfr_avg, down_mfr_max, up_send_bytes_cnt, 
+    down_recv_bytes_cnt, start_time, end_time
+    from udp_kpi_index
+  </select>
+</mapper>

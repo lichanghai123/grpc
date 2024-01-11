@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.HttpDelayKpiIndexMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.HttpDelayKpiIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_location" jdbcType="VARCHAR" property="clientLocation" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="main_type" jdbcType="INTEGER" property="mainType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+    <result column="delay_avg" jdbcType="REAL" property="delayAvg" />
+    <result column="ssl_cnt" jdbcType="INTEGER" property="sslCnt" />
+    <result column="sh_delay_avg" jdbcType="REAL" property="shDelayAvg" />
+    <result column="hello_cnt" jdbcType="INTEGER" property="helloCnt" />
+    <result column="ch_delay_avg" jdbcType="REAL" property="chDelayAvg" />
+    <result column="c_hello_cnt" jdbcType="INTEGER" property="cHelloCnt" />
+    <result column="fd_delay_avg" jdbcType="REAL" property="fdDelayAvg" />
+    <result column="f_data_cnt" jdbcType="INTEGER" property="fDataCnt" />
+    <result column="as_delay_avg" jdbcType="REAL" property="asDelayAvg" />
+    <result column="ask_ssk_cnt" jdbcType="INTEGER" property="askSskCnt" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from http_delay_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.HttpDelayKpiIndex">
+    insert into http_delay_kpi_index (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      delay_avg, ssl_cnt, sh_delay_avg, 
+      hello_cnt, ch_delay_avg, c_hello_cnt, 
+      fd_delay_avg, f_data_cnt, as_delay_avg, 
+      ask_ssk_cnt, dev_ip, collect_time, 
+      start_time, end_time)
+    values (#{id,jdbcType=BIGINT}, #{clientLocation,jdbcType=VARCHAR}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{mainType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER}, 
+      #{delayAvg,jdbcType=REAL}, #{sslCnt,jdbcType=INTEGER}, #{shDelayAvg,jdbcType=REAL}, 
+      #{helloCnt,jdbcType=INTEGER}, #{chDelayAvg,jdbcType=REAL}, #{cHelloCnt,jdbcType=INTEGER}, 
+      #{fdDelayAvg,jdbcType=REAL}, #{fDataCnt,jdbcType=INTEGER}, #{asDelayAvg,jdbcType=REAL}, 
+      #{askSskCnt,jdbcType=INTEGER}, #{devIp,jdbcType=VARCHAR}, #{collectTime,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.HttpDelayKpiIndex">
+        insert into ${tableName} (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      delay_avg, ssl_cnt, sh_delay_avg, 
+      hello_cnt, ch_delay_avg, c_hello_cnt, 
+      fd_delay_avg, f_data_cnt, as_delay_avg, 
+      ask_ssk_cnt, dev_ip, collect_time,start_time, end_time
+      )
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.clientLocation,jdbcType=VARCHAR}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.uuid,jdbcType=VARCHAR}, #{trafficData.mainType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER}, 
+      #{trafficData.delayAvg,jdbcType=REAL}, #{trafficData.sslCnt,jdbcType=INTEGER}, #{trafficData.shDelayAvg,jdbcType=REAL}, 
+      #{trafficData.helloCnt,jdbcType=INTEGER}, #{trafficData.chDelayAvg,jdbcType=REAL}, #{trafficData.cHelloCnt,jdbcType=INTEGER}, 
+      #{trafficData.fdDelayAvg,jdbcType=REAL}, #{trafficData.fDataCnt,jdbcType=INTEGER}, #{trafficData.asDelayAvg,jdbcType=REAL}, 
+      #{trafficData.askSskCnt,jdbcType=INTEGER}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.collectTime,jdbcType=TIMESTAMP},
+      #{trafficData.startTime,jdbcType=TIMESTAMP}, #{trafficData.endTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.HttpDelayKpiIndex">
+    update http_delay_kpi_index
+    set client_location = #{clientLocation,jdbcType=VARCHAR},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      main_type = #{mainType,jdbcType=INTEGER},
+      sub_type = #{subType,jdbcType=INTEGER},
+      delay_avg = #{delayAvg,jdbcType=REAL},
+      ssl_cnt = #{sslCnt,jdbcType=INTEGER},
+      sh_delay_avg = #{shDelayAvg,jdbcType=REAL},
+      hello_cnt = #{helloCnt,jdbcType=INTEGER},
+      ch_delay_avg = #{chDelayAvg,jdbcType=REAL},
+      c_hello_cnt = #{cHelloCnt,jdbcType=INTEGER},
+      fd_delay_avg = #{fdDelayAvg,jdbcType=REAL},
+      f_data_cnt = #{fDataCnt,jdbcType=INTEGER},
+      as_delay_avg = #{asDelayAvg,jdbcType=REAL},
+      ask_ssk_cnt = #{askSskCnt,jdbcType=INTEGER},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, delay_avg, 
+    ssl_cnt, sh_delay_avg, hello_cnt, ch_delay_avg, c_hello_cnt, fd_delay_avg, f_data_cnt, 
+    as_delay_avg, ask_ssk_cnt, dev_ip, collect_time, start_time, end_time
+    from http_delay_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, delay_avg, 
+    ssl_cnt, sh_delay_avg, hello_cnt, ch_delay_avg, c_hello_cnt, fd_delay_avg, f_data_cnt, 
+    as_delay_avg, ask_ssk_cnt, dev_ip, collect_time, start_time, end_time
+    from http_delay_kpi_index
+  </select>
+  
+</mapper>

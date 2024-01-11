@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.RtpKpiIndexMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.RtpKpiIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_location" jdbcType="VARCHAR" property="clientLocation" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="main_type" jdbcType="INTEGER" property="mainType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+    <result column="app_identify" jdbcType="INTEGER" property="appIdentify" />
+    <result column="flow" jdbcType="VARCHAR" property="flow" />
+    <result column="upward_mfr_avg" jdbcType="REAL" property="upwardMfrAvg" />
+    <result column="upward_mfr_max" jdbcType="REAL" property="upwardMfrMax" />
+    <result column="downward_mfr_avg" jdbcType="REAL" property="downwardMfrAvg" />
+    <result column="downward_mfr_max" jdbcType="REAL" property="downwardMfrMax" />
+    <result column="upward_pp_cnt" jdbcType="BIGINT" property="upwardPpCnt" />
+    <result column="upward_upl_cnt" jdbcType="BIGINT" property="upwardUplCnt" />
+    <result column="upward_dpl_cnt" jdbcType="BIGINT" property="upwardDplCnt" />
+    <result column="downward_pp_cnt" jdbcType="BIGINT" property="downwardPpCnt" />
+    <result column="downward_upl_cnt" jdbcType="BIGINT" property="downwardUplCnt" />
+    <result column="downward_dpl_cnt" jdbcType="BIGINT" property="downwardDplCnt" />
+    <result column="upward_ucpl_time_max" jdbcType="INTEGER" property="upwardUcplTimeMax" />
+    <result column="downward_ucpl_time_max" jdbcType="INTEGER" property="downwardUcplTimeMax" />
+    <result column="upward_updt_avg" jdbcType="REAL" property="upwardUpdtAvg" />
+    <result column="upward_updt_max" jdbcType="REAL" property="upwardUpdtMax" />
+    <result column="downward_updt_avg" jdbcType="REAL" property="downwardUpdtAvg" />
+    <result column="downward_updt_max" jdbcType="REAL" property="downwardUpdtMax" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="up_send_bytes_cnt" jdbcType="INTEGER" property="upSendBytesCnt" />
+    <result column="down_send_bytes_cnt" jdbcType="INTEGER" property="downSendBytesCnt" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from rtp_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.RtpKpiIndex">
+    insert into rtp_kpi_index (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      app_identify, flow, upward_mfr_avg, 
+      upward_mfr_max, downward_mfr_avg, downward_mfr_max, 
+      upward_pp_cnt, upward_upl_cnt, upward_dpl_cnt, 
+      downward_pp_cnt, downward_upl_cnt, downward_dpl_cnt, 
+      upward_ucpl_time_max, downward_ucpl_time_max, 
+      upward_updt_avg, upward_updt_max, downward_updt_avg, 
+      downward_updt_max, dev_ip, collect_time, 
+      up_send_bytes_cnt, down_send_bytes_cnt, start_time, 
+      end_time)
+    values (#{id,jdbcType=BIGINT}, #{clientLocation,jdbcType=VARCHAR}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{mainType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER}, 
+      #{appIdentify,jdbcType=INTEGER}, #{flow,jdbcType=VARCHAR}, #{upwardMfrAvg,jdbcType=REAL}, 
+      #{upwardMfrMax,jdbcType=REAL}, #{downwardMfrAvg,jdbcType=REAL}, #{downwardMfrMax,jdbcType=REAL}, 
+      #{upwardPpCnt,jdbcType=BIGINT}, #{upwardUplCnt,jdbcType=BIGINT}, #{upwardDplCnt,jdbcType=BIGINT}, 
+      #{downwardPpCnt,jdbcType=BIGINT}, #{downwardUplCnt,jdbcType=BIGINT}, #{downwardDplCnt,jdbcType=BIGINT}, 
+      #{upwardUcplTimeMax,jdbcType=INTEGER}, #{downwardUcplTimeMax,jdbcType=INTEGER}, 
+      #{upwardUpdtAvg,jdbcType=REAL}, #{upwardUpdtMax,jdbcType=REAL}, #{downwardUpdtAvg,jdbcType=REAL}, 
+      #{downwardUpdtMax,jdbcType=REAL}, #{devIp,jdbcType=VARCHAR}, #{collectTime,jdbcType=TIMESTAMP}, 
+      #{upSendBytesCnt,jdbcType=INTEGER}, #{downSendBytesCnt,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.RtpKpiIndex">
+        insert into ${tableName} (id, client_location, client_mac_address, 
+      uuid, main_type, sub_type, 
+      app_identify, flow, upward_mfr_avg, 
+      upward_mfr_max, downward_mfr_avg, downward_mfr_max, 
+      upward_pp_cnt, upward_upl_cnt, upward_dpl_cnt, 
+      downward_pp_cnt, downward_upl_cnt, downward_dpl_cnt, 
+      upward_ucpl_time_max, downward_ucpl_time_max, 
+      upward_updt_avg, upward_updt_max, downward_updt_avg, 
+      downward_updt_max, dev_ip, collect_time, 
+      up_send_bytes_cnt, down_send_bytes_cnt, start_time, 
+      end_time)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.clientLocation,jdbcType=VARCHAR}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.uuid,jdbcType=VARCHAR}, #{trafficData.mainType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER}, 
+      #{trafficData.appIdentify,jdbcType=INTEGER}, #{trafficData.flow,jdbcType=VARCHAR}, #{trafficData.upwardMfrAvg,jdbcType=REAL}, 
+      #{trafficData.upwardMfrMax,jdbcType=REAL}, #{trafficData.downwardMfrAvg,jdbcType=REAL}, #{trafficData.downwardMfrMax,jdbcType=REAL}, 
+      #{trafficData.upwardPpCnt,jdbcType=BIGINT}, #{trafficData.upwardUplCnt,jdbcType=BIGINT}, #{trafficData.upwardDplCnt,jdbcType=BIGINT}, 
+      #{trafficData.downwardPpCnt,jdbcType=BIGINT}, #{trafficData.downwardUplCnt,jdbcType=BIGINT}, #{trafficData.downwardDplCnt,jdbcType=BIGINT}, 
+      #{trafficData.upwardUcplTimeMax,jdbcType=INTEGER}, #{trafficData.downwardUcplTimeMax,jdbcType=INTEGER}, 
+      #{trafficData.upwardUpdtAvg,jdbcType=REAL}, #{trafficData.upwardUpdtMax,jdbcType=REAL}, #{trafficData.downwardUpdtAvg,jdbcType=REAL}, 
+      #{trafficData.downwardUpdtMax,jdbcType=REAL}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.collectTime,jdbcType=TIMESTAMP},
+      #{trafficData.upSendBytesCnt,jdbcType=INTEGER}, #{trafficData.downSendBytesCnt,jdbcType=INTEGER}, #{trafficData.startTime,jdbcType=TIMESTAMP}, 
+      #{trafficData.endTime,jdbcType=TIMESTAMP}
+      )
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.RtpKpiIndex">
+    update rtp_kpi_index
+    set client_location = #{clientLocation,jdbcType=VARCHAR},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      main_type = #{mainType,jdbcType=INTEGER},
+      sub_type = #{subType,jdbcType=INTEGER},
+      app_identify = #{appIdentify,jdbcType=INTEGER},
+      flow = #{flow,jdbcType=VARCHAR},
+      upward_mfr_avg = #{upwardMfrAvg,jdbcType=REAL},
+      upward_mfr_max = #{upwardMfrMax,jdbcType=REAL},
+      downward_mfr_avg = #{downwardMfrAvg,jdbcType=REAL},
+      downward_mfr_max = #{downwardMfrMax,jdbcType=REAL},
+      upward_pp_cnt = #{upwardPpCnt,jdbcType=BIGINT},
+      upward_upl_cnt = #{upwardUplCnt,jdbcType=BIGINT},
+      upward_dpl_cnt = #{upwardDplCnt,jdbcType=BIGINT},
+      downward_pp_cnt = #{downwardPpCnt,jdbcType=BIGINT},
+      downward_upl_cnt = #{downwardUplCnt,jdbcType=BIGINT},
+      downward_dpl_cnt = #{downwardDplCnt,jdbcType=BIGINT},
+      upward_ucpl_time_max = #{upwardUcplTimeMax,jdbcType=INTEGER},
+      downward_ucpl_time_max = #{downwardUcplTimeMax,jdbcType=INTEGER},
+      upward_updt_avg = #{upwardUpdtAvg,jdbcType=REAL},
+      upward_updt_max = #{upwardUpdtMax,jdbcType=REAL},
+      downward_updt_avg = #{downwardUpdtAvg,jdbcType=REAL},
+      downward_updt_max = #{downwardUpdtMax,jdbcType=REAL},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      up_send_bytes_cnt = #{upSendBytesCnt,jdbcType=INTEGER},
+      down_send_bytes_cnt = #{downSendBytesCnt,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, app_identify, 
+    flow, upward_mfr_avg, upward_mfr_max, downward_mfr_avg, downward_mfr_max, upward_pp_cnt, 
+    upward_upl_cnt, upward_dpl_cnt, downward_pp_cnt, downward_upl_cnt, downward_dpl_cnt, 
+    upward_ucpl_time_max, downward_ucpl_time_max, upward_updt_avg, upward_updt_max, downward_updt_avg, 
+    downward_updt_max, dev_ip, collect_time, up_send_bytes_cnt, down_send_bytes_cnt, 
+    start_time, end_time
+    from rtp_kpi_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, main_type, sub_type, app_identify, 
+    flow, upward_mfr_avg, upward_mfr_max, downward_mfr_avg, downward_mfr_max, upward_pp_cnt, 
+    upward_upl_cnt, upward_dpl_cnt, downward_pp_cnt, downward_upl_cnt, downward_dpl_cnt, 
+    upward_ucpl_time_max, downward_ucpl_time_max, upward_updt_avg, upward_updt_max, downward_updt_avg, 
+    downward_updt_max, dev_ip, collect_time, up_send_bytes_cnt, down_send_bytes_cnt, 
+    start_time, end_time
+    from rtp_kpi_index
+  </select>
+</mapper>

@@ -1,0 +1,40 @@
+server:
+  port: 5555
+  grpc:
+    port: 50021
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.2.231:3306/traffic?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useOldAliasMetadataBehavior=true&createDatabaseIfNotExist=true&characterEncoding=UTF-8
+      username: wnec_admin
+      password: Wnec_admin_123
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 10
+      min-idle: 100
+      max-active: 200
+      max-wait: 60000
+      validation-query: SELECT 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+  application:
+    name: grpc
+  redis:
+    host: 192.168.2.231
+    database: 0
+    port: 6379
+    password: '`123qwer'
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000
+mybatis:
+  mapper-locations: classpath:com/mapper/*.xml
+  type-aliases-package: com.pojo

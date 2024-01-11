@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OnuTransceiverMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.OnuTransceiver">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="port_name" jdbcType="VARCHAR" property="portName" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="rx_power" jdbcType="INTEGER" property="rxPower" />
+    <result column="tx_power" jdbcType="INTEGER" property="txPower" />
+    <result column="laser_bias_current" jdbcType="INTEGER" property="laserBiasCurrent" />
+    <result column="temperature" jdbcType="INTEGER" property="temperature" />
+    <result column="voltage" jdbcType="INTEGER" property="voltage" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+  </resultMap>
+  <insert id="insert" parameterType="com.pojo.OnuTransceiver">
+    insert into onu_transceiver (id, dev_ip, port_name, 
+      collect_time, rx_power, tx_power, 
+      laser_bias_current, temperature, voltage, 
+      module_type, sub_type)
+    values (#{id,jdbcType=BIGINT}, #{devIp,jdbcType=VARCHAR}, #{portName,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{rxPower,jdbcType=INTEGER}, #{txPower,jdbcType=INTEGER}, 
+      #{laserBiasCurrent,jdbcType=INTEGER}, #{temperature,jdbcType=INTEGER}, #{voltage,jdbcType=INTEGER}, 
+      #{moduleType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER})
+  </insert>
+ <insert id="batchInsert" parameterType="com.pojo.OnuTransceiver">
+        insert into ${tableName} (id, dev_ip, port_name, 
+      collect_time, rx_power, tx_power, 
+      laser_bias_current, temperature, voltage, 
+      module_type, sub_type)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.rxPower,jdbcType=INTEGER}, #{trafficData.txPower,jdbcType=INTEGER}, 
+      #{trafficData.laserBiasCurrent,jdbcType=INTEGER}, #{trafficData.temperature,jdbcType=INTEGER}, #{trafficData.voltage,jdbcType=INTEGER}, 
+      #{trafficData.moduleType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+</mapper>

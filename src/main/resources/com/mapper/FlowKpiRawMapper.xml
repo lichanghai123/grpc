@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.FlowKpiRawMapper">
+    <resultMap id="BaseResultMap" type="com.pojo.FlowKpiRaw">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="dev_ip" jdbcType="VARCHAR" property="devIp"/>
+        <result column="port_name" jdbcType="VARCHAR" property="portName"/>
+        <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime"/>
+         <result column="drop_cnt" jdbcType="BIGINT" property="dropCnt"/>
+         <result column="pass_cnt" jdbcType="BIGINT" property="passCnt"/>
+       <result column="drop_max" jdbcType="SMALLINT" property="dropMax"/>
+         <result column="drop_min" jdbcType="SMALLINT" property="dropMin"/>
+         <result column="drop_rate_max" jdbcType="SMALLINT" property="dropRateMax"/>
+         <result column="drop_rate_min" jdbcType="SMALLINT" property="dropRateMin"/>
+         <result column="drop_seconds_cnt" jdbcType="SMALLINT" property="dropSecondsCnt"/>
+         <result column="pass_bytes" jdbcType="BIGINT" property="passBytes"/>
+         <result column="mfr_avg" jdbcType="SMALLINT" property="mfrAvg"/>
+         <result column="up_pass_bytes" jdbcType="BIGINT" property="upPassBytes"/>
+         <result column="up_pass_cnt" jdbcType="BIGINT" property="upPassCnt"/>
+         <result column="up_drop_cnt" jdbcType="BIGINT" property="updropCnt"/>
+    </resultMap>
+   
+    <insert id="batchInsert" parameterType="com.pojo.FlowKpiRaw">
+        insert into ${tableName} (id, dev_ip, port_name, collect_time, drop_cnt, pass_cnt,drop_max,drop_min,drop_rate_max,drop_rate_min,drop_seconds_cnt,
+        pass_bytes,mfr_avg,up_pass_bytes,up_pass_cnt,up_drop_cnt)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR},
+                #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.dropCnt,jdbcType=SMALLINT}, #{trafficData.passCnt,jdbcType=SMALLINT},
+                #{trafficData.dropMax,jdbcType=SMALLINT}, #{trafficData.dropMin,jdbcType=SMALLINT},
+                #{trafficData.dropRateMax,jdbcType=SMALLINT}, #{trafficData.dropRateMin,jdbcType=SMALLINT},
+                #{trafficData.dropSecondsCnt,jdbcType=SMALLINT}, #{trafficData.passBytes,jdbcType=BIGINT},
+                #{trafficData.mfrAvg,jdbcType=SMALLINT}, #{trafficData.upPassBytes,jdbcType=BIGINT},
+                #{trafficData.upPassCnt,jdbcType=BIGINT}, #{trafficData.updropCnt,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+  
+</mapper>

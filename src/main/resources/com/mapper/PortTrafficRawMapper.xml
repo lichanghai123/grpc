@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PortTrafficRawMapper">
+    <resultMap id="BaseResultMap" type="com.pojo.PortTrafficRaw">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+      <!--   <result column="area" jdbcType="VARCHAR" property="area"/> -->
+        <result column="dev_ip" jdbcType="VARCHAR" property="devIp"/>
+        <result column="port_name" jdbcType="VARCHAR" property="portName"/>
+        <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime"/>
+        <result column="received_bytes" jdbcType="BIGINT" property="receivedBytes"/>
+        <result column="sent_bytes" jdbcType="BIGINT" property="sentBytes"/>
+         <result column="port_tx_pkt" jdbcType="BIGINT" property="portTxPkt"/>
+         <result column="port_rx_pkt" jdbcType="BIGINT" property="portRxPkt"/>
+         <result column="tx_discard_pkt" jdbcType="BIGINT" property="txDiscardPkt"/>
+         <result column="rx_discard_pkt" jdbcType="BIGINT" property="rxDiscardPkt"/>
+         <result column="rx_crc_error_pkt" jdbcType="BIGINT" property="rxCrcErrorPkt"/>
+         <result column="rx_oversized_discard_pkt" jdbcType="BIGINT" property="rxOversizedDiscardPkt"/>
+         <result column="rx_undersized_discard_pkt" jdbcType="BIGINT" property="rxUndersizedDiscardPkt"/>
+         <result column="rx_error_pkt" jdbcType="BIGINT" property="rxErrorPkt"/>
+         <result column="tx_rate" jdbcType="SMALLINT" property="receivedBytes"/>
+         <result column="rx_rate" jdbcType="SMALLINT" property="receivedBytes"/>
+         <result column="tx_peak_rate" jdbcType="SMALLINT" property="receivedBytes"/>
+         <result column="rx_peak_rate" jdbcType="SMALLINT" property="receivedBytes"/>
+         <result column="channel" jdbcType="SMALLINT" property="channelNo"/>
+       <!--  <result column="received_flow" jdbcType="DECIMAL" property="receivedFlow"/>
+        <result column="sent_flow" jdbcType="DECIMAL" property="sentFlow"/>
+        <result column="received_flow_rate" jdbcType="DECIMAL" property="receivedFlowRate"/>
+        <result column="sent_flow_rate" jdbcType="DECIMAL" property="sentFlowRate"/>
+        <result column="received_bandwidth_utilization" jdbcType="DECIMAL" property="receivedBandwidthUtilization"/>
+        <result column="sent_bandwidth_utilization" jdbcType="DECIMAL" property="sentBandwidthUtilization"/>
+        <result column="packet_loss" jdbcType="BIGINT" property="packetLoss"/>
+        <result column="packet_loss_ratio" jdbcType="DECIMAL" property="packetLossRatio"/>
+        <result column="subscriber_id" jdbcType="BIGINT" property="subscriberId"/> -->
+    </resultMap>
+   
+    <insert id="batchInsert" parameterType="com.pojo.PortTrafficRaw">
+        insert into ${tableName} (id, dev_ip, port_name, collect_time, received_bytes, sent_bytes,port_tx_pkt,port_rx_pkt,
+        tx_discard_pkt,rx_discard_pkt,rx_crc_error_pkt,rx_oversized_discard_pkt,rx_undersized_discard_pkt,rx_error_pkt,tx_rate,
+        rx_rate,tx_peak_rate,rx_peak_rate,channel)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR},
+                #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.receivedBytes,jdbcType=BIGINT}, #{trafficData.sentBytes,jdbcType=BIGINT},
+                #{trafficData.portTxPkt,jdbcType=BIGINT}, #{trafficData.portRxPkt,jdbcType=BIGINT},
+                #{trafficData.txDiscardPkt,jdbcType=BIGINT}, #{trafficData.rxDiscardPkt,jdbcType=BIGINT},
+                #{trafficData.rxCrcErrorPkt,jdbcType=BIGINT}, #{trafficData.rxOversizedDiscardPkt,jdbcType=BIGINT},
+                #{trafficData.rxUndersizedDiscardPkt,jdbcType=BIGINT}, #{trafficData.rxErrorPkt,jdbcType=BIGINT},
+                 #{trafficData.txRate,jdbcType=SMALLINT}, #{trafficData.rxRate,jdbcType=SMALLINT},
+                  #{trafficData.txPeakRate,jdbcType=SMALLINT}, #{trafficData.rxPeakRate,jdbcType=SMALLINT}
+                  , #{trafficData.channelNo,jdbcType=SMALLINT})
+        </foreach>
+    </insert>
+  
+</mapper>

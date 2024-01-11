@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OnuRemoteInfoMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.OnuRemoteInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="port_name" jdbcType="VARCHAR" property="portName" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="corrected_bytes" jdbcType="BIGINT" property="correctedBytes" />
+    <result column="corrected_words" jdbcType="BIGINT" property="correctedWords" />
+    <result column="uncorrected_words" jdbcType="BIGINT" property="uncorrectedWords" />
+    <result column="total_rx_code_words" jdbcType="BIGINT" property="totalRxCodeWords" />
+    <result column="fec_seconds" jdbcType="INTEGER" property="fecSeconds" />
+    <result column="hec_error_count" jdbcType="BIGINT" property="hecErrorCount" />
+    <result column="key_error_count" jdbcType="BIGINT" property="keyErrorCount" />
+    <result column="mem_occup" jdbcType="INTEGER" property="memOccup" />
+    <result column="cpu_occup" jdbcType="INTEGER" property="cpuOccup" />
+    <result column="cpu_temp" jdbcType="INTEGER" property="cpuTemp" />
+    <result column="send_packets" jdbcType="BIGINT" property="sendPackets" />
+    <result column="recv_packets" jdbcType="BIGINT" property="recvPackets" />
+    <result column="recv_errors_packets" jdbcType="BIGINT" property="recvErrorsPackets" />
+    <result column="dropped_packets" jdbcType="BIGINT" property="droppedPackets" />
+    <result column="passing_packets" jdbcType="BIGINT" property="passingPackets" />
+  </resultMap>
+  <insert id="insert" parameterType="com.pojo.OnuRemoteInfo">
+    insert into onu_remote_info (id, dev_ip, port_name, 
+      collect_time, corrected_bytes, corrected_words, 
+      uncorrected_words, total_rx_code_words, fec_seconds, 
+      hec_error_count, key_error_count, mem_occup, 
+      cpu_occup, cpu_temp, send_packets, 
+      recv_packets, recv_errors_packets, dropped_packets, 
+      passing_packets)
+    values (#{id,jdbcType=BIGINT}, #{devIp,jdbcType=VARCHAR}, #{portName,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{correctedBytes,jdbcType=BIGINT}, #{correctedWords,jdbcType=BIGINT}, 
+      #{uncorrectedWords,jdbcType=BIGINT}, #{totalRxCodeWords,jdbcType=BIGINT}, #{fecSeconds,jdbcType=INTEGER}, 
+      #{hecErrorCount,jdbcType=BIGINT}, #{keyErrorCount,jdbcType=BIGINT}, #{memOccup,jdbcType=INTEGER}, 
+      #{cpuOccup,jdbcType=INTEGER}, #{cpuTemp,jdbcType=INTEGER}, #{sendPackets,jdbcType=BIGINT}, 
+      #{recvPackets,jdbcType=BIGINT}, #{recvErrorsPackets,jdbcType=BIGINT}, #{droppedPackets,jdbcType=BIGINT}, 
+      #{passingPackets,jdbcType=BIGINT})
+  </insert>
+<insert id="batchInsert" parameterType="com.pojo.OnuRemoteInfo">
+       insert into ${tableName} (id, dev_ip, port_name, 
+      collect_time, corrected_bytes, corrected_words, 
+      uncorrected_words, total_rx_code_words, fec_seconds, 
+      hec_error_count, key_error_count, mem_occup, 
+      cpu_occup, cpu_temp, send_packets, 
+      recv_packets, recv_errors_packets, dropped_packets, 
+      passing_packets)
+       values
+       <foreach collection="trafficDatas" item="trafficData" separator=",">
+           (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.correctedBytes,jdbcType=BIGINT}, #{trafficData.correctedWords,jdbcType=BIGINT}, 
+      #{trafficData.uncorrectedWords,jdbcType=BIGINT}, #{trafficData.totalRxCodeWords,jdbcType=BIGINT}, #{trafficData.fecSeconds,jdbcType=INTEGER}, 
+      #{trafficData.hecErrorCount,jdbcType=BIGINT}, #{trafficData.keyErrorCount,jdbcType=BIGINT}, #{trafficData.memOccup,jdbcType=INTEGER}, 
+      #{trafficData.cpuOccup,jdbcType=INTEGER}, #{trafficData.cpuTemp,jdbcType=INTEGER}, #{trafficData.sendPackets,jdbcType=BIGINT}, 
+      #{trafficData.recvPackets,jdbcType=BIGINT}, #{trafficData.recvErrorsPackets,jdbcType=BIGINT}, #{trafficData.droppedPackets,jdbcType=BIGINT}, 
+      #{trafficData.passingPackets,jdbcType=BIGINT})
+       </foreach>
+   </insert>
+</mapper>

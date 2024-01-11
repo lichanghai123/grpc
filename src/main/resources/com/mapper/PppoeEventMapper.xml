@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PppoeEventMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.PppoeEvent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="event_time" jdbcType="TIMESTAMP" property="eventTime" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="stat_alarm" jdbcType="INTEGER" property="statAlarm" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pppoe_event
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.PppoeEvent">
+    insert into pppoe_event (id, event_time, client_mac_address, 
+      user_account, stat_alarm, dev_ip, 
+      collect_time)
+    values (#{id,jdbcType=BIGINT}, #{eventTime,jdbcType=TIMESTAMP}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{userAccount,jdbcType=VARCHAR}, #{statAlarm,jdbcType=INTEGER}, #{devIp,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.PppoeEvent">
+        insert into ${tableName} (id, event_time, client_mac_address, 
+      user_account, stat_alarm, dev_ip, 
+      collect_time
+      )
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.eventTime,jdbcType=TIMESTAMP}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.userAccount,jdbcType=VARCHAR}, #{trafficData.statAlarm,jdbcType=INTEGER}, #{trafficData.devIp,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.PppoeEvent">
+    update pppoe_event
+    set event_time = #{eventTime,jdbcType=TIMESTAMP},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      stat_alarm = #{statAlarm,jdbcType=INTEGER},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, event_time, client_mac_address, user_account, stat_alarm, dev_ip, collect_time
+    from pppoe_event
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, event_time, client_mac_address, user_account, stat_alarm, dev_ip, collect_time
+    from pppoe_event
+  </select>
+</mapper>

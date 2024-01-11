@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TcpConnectIndexMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.TcpConnectIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_location" jdbcType="VARCHAR" property="clientLocation" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="up_connect_init_cnt" jdbcType="INTEGER" property="upConnectInitCnt" />
+    <result column="up_connect_ack_cnt" jdbcType="INTEGER" property="upConnectAckCnt" />
+    <result column="up_connect_succ_cnt" jdbcType="INTEGER" property="upConnectSuccCnt" />
+    <result column="up_syn_drtt_avg" jdbcType="REAL" property="upSynDrttAvg" />
+    <result column="down_syn_drtt_avg" jdbcType="REAL" property="downSynDrttAvg" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcp_connect_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TcpConnectIndex">
+    insert into tcp_connect_index (id, client_location, client_mac_address, 
+      uuid, up_connect_init_cnt, up_connect_ack_cnt, 
+      up_connect_succ_cnt, up_syn_drtt_avg, down_syn_drtt_avg, 
+      dev_ip, collect_time, start_time, 
+      end_time)
+    values (#{id,jdbcType=BIGINT}, #{clientLocation,jdbcType=VARCHAR}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{upConnectInitCnt,jdbcType=INTEGER}, #{upConnectAckCnt,jdbcType=INTEGER}, 
+      #{upConnectSuccCnt,jdbcType=INTEGER}, #{upSynDrttAvg,jdbcType=REAL}, #{downSynDrttAvg,jdbcType=REAL}, 
+      #{devIp,jdbcType=VARCHAR}, #{collectTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="batchInsert" parameterType="com.pojo.TcpConnectIndex">
+        insert into ${tableName} (id, client_location, client_mac_address, 
+      uuid, up_connect_init_cnt, up_connect_ack_cnt, 
+      up_connect_succ_cnt, up_syn_drtt_avg, down_syn_drtt_avg, 
+      dev_ip, collect_time, start_time, 
+      end_time)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.clientLocation,jdbcType=VARCHAR}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.uuid,jdbcType=VARCHAR}, #{trafficData.upConnectInitCnt,jdbcType=INTEGER}, #{trafficData.upConnectAckCnt,jdbcType=INTEGER}, 
+      #{trafficData.upConnectSuccCnt,jdbcType=INTEGER}, #{trafficData.upSynDrttAvg,jdbcType=REAL}, #{trafficData.downSynDrttAvg,jdbcType=REAL}, 
+      #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.startTime,jdbcType=TIMESTAMP}, 
+      #{trafficData.endTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TcpConnectIndex">
+    update tcp_connect_index
+    set client_location = #{clientLocation,jdbcType=VARCHAR},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      up_connect_init_cnt = #{upConnectInitCnt,jdbcType=INTEGER},
+      up_connect_ack_cnt = #{upConnectAckCnt,jdbcType=INTEGER},
+      up_connect_succ_cnt = #{upConnectSuccCnt,jdbcType=INTEGER},
+      up_syn_drtt_avg = #{upSynDrttAvg,jdbcType=REAL},
+      down_syn_drtt_avg = #{downSynDrttAvg,jdbcType=REAL},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, up_connect_init_cnt, up_connect_ack_cnt, 
+    up_connect_succ_cnt, up_syn_drtt_avg, down_syn_drtt_avg, dev_ip, collect_time, start_time, 
+    end_time
+    from tcp_connect_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_location, client_mac_address, uuid, up_connect_init_cnt, up_connect_ack_cnt, 
+    up_connect_succ_cnt, up_syn_drtt_avg, down_syn_drtt_avg, dev_ip, collect_time, start_time, 
+    end_time
+    from tcp_connect_index
+  </select>
+</mapper>

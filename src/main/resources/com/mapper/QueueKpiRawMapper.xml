@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.QueueKpiRawMapper">
+    <resultMap id="BaseResultMap" type="com.pojo.QueueKpiRaw">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="dev_ip" jdbcType="VARCHAR" property="devIp"/>
+        <result column="port_name" jdbcType="VARCHAR" property="portName"/>
+        <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime"/>
+         <result column="channel" jdbcType="VARCHAR" property="channelNo"/>
+        <result column="queue_index" jdbcType="SMALLINT" property="queIndex"/>
+        <result column="pass_bytes" jdbcType="BIGINT" property="passBytes"/>
+         <result column="pass_pkt" jdbcType="BIGINT" property="passPkt"/>
+         <result column="drop_pkt" jdbcType="BIGINT" property="dropPkt"/>
+        <result column="pass_green_bytes" jdbcType="BIGINT" property="passGreenBytes"/>
+         <result column="pass_green_pkt" jdbcType="BIGINT" property="passGreenPkt"/>
+         <result column="drop_green_pkt" jdbcType="BIGINT" property="dropGreenPkt"/>
+         <result column="pass_yellow_bytes" jdbcType="BIGINT" property="passYellowBytes"/>
+         <result column="pass_yellow_pkt" jdbcType="BIGINT" property="passYellowPkt"/>
+         <result column="drop_yellow_pkt" jdbcType="BIGINT" property="dropYellowPkt"/>
+    </resultMap>
+   
+    <insert id="batchInsert" parameterType="com.pojo.QueueKpiRaw">
+        insert into ${tableName} (id, dev_ip, port_name, collect_time, channel, queue_index,pass_bytes,pass_pkt,
+        drop_pkt,pass_green_bytes,pass_green_pkt,drop_green_pkt,pass_yellow_bytes,pass_yellow_pkt,drop_yellow_pkt)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR},
+                #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.channelNo,jdbcType=VARCHAR}, #{trafficData.queIndex,jdbcType=SMALLINT},
+                #{trafficData.passBytes,jdbcType=BIGINT}, #{trafficData.passPkt,jdbcType=BIGINT},
+                #{trafficData.dropPkt,jdbcType=BIGINT}, #{trafficData.passGreenBytes,jdbcType=BIGINT},
+                #{trafficData.passGreenPkt,jdbcType=BIGINT}, #{trafficData.dropGreenPkt,jdbcType=BIGINT},
+                #{trafficData.passYellowBytes,jdbcType=BIGINT}, #{trafficData.passYellowPkt,jdbcType=BIGINT},
+                  #{trafficData.dropYellowPkt,jdbcType=SMALLINT})
+        </foreach>
+    </insert>
+  
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OnuTrafficRawMapper">
+    <resultMap id="BaseResultMap" type="com.pojo.OnuTrafficRaw">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="dev_ip" jdbcType="VARCHAR" property="devIp"/>
+        <result column="port_name" jdbcType="VARCHAR" property="portName"/>
+        <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime"/>
+         <result column="tx_rate" jdbcType="SMALLINT" property="txRate"/>
+         <result column="rx_rate" jdbcType="SMALLINT" property="rxRate"/>
+       <result column="tx_peak_rate" jdbcType="SMALLINT" property="txPeakRate"/>
+         <result column="rx_peak_rate" jdbcType="SMALLINT" property="rxPeakRate"/>
+    </resultMap>
+   
+    <insert id="batchInsert" parameterType="com.pojo.OnuTrafficRaw">
+        insert into ${tableName} (id, dev_ip, port_name, collect_time, tx_rate, rx_rate,tx_peak_rate,rx_peak_rate)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR},
+                #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.txRate,jdbcType=SMALLINT}, #{trafficData.rxRate,jdbcType=SMALLINT},
+                #{trafficData.txPeakRate,jdbcType=SMALLINT}, #{trafficData.rxPeakRate,jdbcType=SMALLINT})
+        </foreach>
+    </insert>
+  
+</mapper>

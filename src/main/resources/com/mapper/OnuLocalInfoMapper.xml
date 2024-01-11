@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OnuLocalInfoMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.OnuLocalInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="port_name" jdbcType="VARCHAR" property="portName" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="olt_rx_power" jdbcType="INTEGER" property="oltRxPower" />
+    <result column="online_duration" jdbcType="INTEGER" property="onlineDuration" />
+    <result column="last_down_time" jdbcType="INTEGER" property="lastDownTime" />
+    <result column="last_down_cause" jdbcType="INTEGER" property="lastDownCause" />
+    <result column="onu_status" jdbcType="INTEGER" property="onuStatus" />
+  </resultMap>
+  <insert id="insert" parameterType="com.pojo.OnuLocalInfo">
+    insert into onu_local_info (id, dev_ip, port_name, 
+      collect_time, olt_rx_power, online_duration, 
+      last_down_time, last_down_cause, onu_status
+      )
+    values (#{id,jdbcType=BIGINT}, #{devIp,jdbcType=VARCHAR}, #{portName,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{oltRxPower,jdbcType=INTEGER}, #{onlineDuration,jdbcType=INTEGER}, 
+      #{lastDownTime,jdbcType=INTEGER}, #{lastDownCause,jdbcType=INTEGER}, #{onuStatus,jdbcType=INTEGER}
+      )
+  </insert>
+<insert id="batchInsert" parameterType="com.pojo.OnuLocalInfo">
+       insert into ${tableName} (id, dev_ip, port_name, 
+      collect_time, olt_rx_power, online_duration, 
+      last_down_time, last_down_cause, onu_status)
+       values
+       <foreach collection="trafficDatas" item="trafficData" separator=",">
+           (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.oltRxPower,jdbcType=INTEGER}, #{trafficData.onlineDuration,jdbcType=INTEGER}, 
+      #{trafficData.lastDownTime,jdbcType=INTEGER}, #{trafficData.lastDownCause,jdbcType=INTEGER}, #{trafficData.onuStatus,jdbcType=INTEGER})
+       </foreach>
+   </insert>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserIdentityEventMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.UserIdentityEvent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="event_time" jdbcType="TIMESTAMP" property="eventTime" />
+    <result column="client_mac_address" jdbcType="VARCHAR" property="clientMacAddress" />
+    <result column="main_type" jdbcType="INTEGER" property="mainType" />
+    <result column="sub_type" jdbcType="INTEGER" property="subType" />
+    <result column="app_identify" jdbcType="INTEGER" property="appIdentify" />
+    <result column="terminal_type" jdbcType="INTEGER" property="terminalType" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_identity_event
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.UserIdentityEvent">
+    insert into user_identity_event (id, event_time, client_mac_address, 
+      main_type, sub_type, app_identify, 
+      terminal_type, account, dev_ip, 
+      collect_time)
+    values (#{id,jdbcType=BIGINT}, #{eventTime,jdbcType=TIMESTAMP}, #{clientMacAddress,jdbcType=VARCHAR}, 
+      #{mainType,jdbcType=INTEGER}, #{subType,jdbcType=INTEGER}, #{appIdentify,jdbcType=INTEGER}, 
+      #{terminalType,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{devIp,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.UserIdentityEvent">
+        insert into ${tableName} (id, event_time, client_mac_address, 
+      main_type, sub_type, app_identify, 
+      terminal_type, account, dev_ip, 
+      collect_time
+      )
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.eventTime,jdbcType=TIMESTAMP}, #{trafficData.clientMacAddress,jdbcType=VARCHAR}, 
+      #{trafficData.mainType,jdbcType=INTEGER}, #{trafficData.subType,jdbcType=INTEGER}, #{trafficData.appIdentify,jdbcType=INTEGER}, 
+      #{trafficData.terminalType,jdbcType=INTEGER}, #{trafficData.account,jdbcType=VARCHAR}, #{trafficData.devIp,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.UserIdentityEvent">
+    update user_identity_event
+    set event_time = #{eventTime,jdbcType=TIMESTAMP},
+      client_mac_address = #{clientMacAddress,jdbcType=VARCHAR},
+      main_type = #{mainType,jdbcType=INTEGER},
+      sub_type = #{subType,jdbcType=INTEGER},
+      app_identify = #{appIdentify,jdbcType=INTEGER},
+      terminal_type = #{terminalType,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, event_time, client_mac_address, main_type, sub_type, app_identify, terminal_type, 
+    account, dev_ip, collect_time
+    from user_identity_event
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, event_time, client_mac_address, main_type, sub_type, app_identify, terminal_type, 
+    account, dev_ip, collect_time
+    from user_identity_event
+  </select>
+</mapper>

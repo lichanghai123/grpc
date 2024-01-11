@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PortTrafficStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.PortTrafficStatisticIndex">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="packet_sniff_rate" jdbcType="INTEGER" property="packetSniffRate" />
+    <result column="sniff_rate" jdbcType="REAL" property="sniffRate" />
+    <result column="sniff_packets_cnt" jdbcType="INTEGER" property="sniffPacketsCnt" />
+    <result column="sniff_bytes_cnt" jdbcType="INTEGER" property="sniffBytesCnt" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from port_traffic_statistics
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.PortTrafficStatisticIndex">
+    insert into port_traffic_statistics (id, packet_sniff_rate, sniff_rate, 
+      sniff_packets_cnt, sniff_bytes_cnt, dev_ip, 
+      collect_time)
+    values (#{id,jdbcType=BIGINT}, #{packetSniffRate,jdbcType=INTEGER}, #{sniffRate,jdbcType=REAL}, 
+      #{sniffPacketsCnt,jdbcType=INTEGER}, #{sniffBytesCnt,jdbcType=INTEGER}, #{devIp,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="batchInsert" parameterType="com.pojo.PortTrafficStatisticIndex">
+        insert into ${tableName} (id, packet_sniff_rate, sniff_rate, 
+      sniff_packets_cnt, sniff_bytes_cnt, dev_ip, 
+      collect_time)
+        values
+        <foreach collection="trafficDatas" item="trafficData" separator=",">
+            (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.packetSniffRate,jdbcType=INTEGER}, #{trafficData.sniffRate,jdbcType=REAL}, 
+      #{trafficData.sniffPacketsCnt,jdbcType=INTEGER}, #{trafficData.sniffBytesCnt,jdbcType=INTEGER}, #{trafficData.devIp,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.PortTrafficStatisticIndex">
+    update port_traffic_statistics
+    set packet_sniff_rate = #{packetSniffRate,jdbcType=INTEGER},
+      sniff_rate = #{sniffRate,jdbcType=REAL},
+      sniff_packets_cnt = #{sniffPacketsCnt,jdbcType=INTEGER},
+      sniff_bytes_cnt = #{sniffBytesCnt,jdbcType=INTEGER},
+      dev_ip = #{devIp,jdbcType=VARCHAR},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, packet_sniff_rate, sniff_rate, sniff_packets_cnt, sniff_bytes_cnt, dev_ip, 
+    collect_time
+    from port_traffic_statistics
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, packet_sniff_rate, sniff_rate, sniff_packets_cnt, sniff_bytes_cnt, dev_ip, 
+    collect_time
+    from port_traffic_statistics
+  </select>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OnuLineQualityMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.OnuLineQuality">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dev_ip" jdbcType="VARCHAR" property="devIp" />
+    <result column="port_name" jdbcType="VARCHAR" property="portName" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="lofi_alarm_count" jdbcType="INTEGER" property="lofiAlarmCount" />
+    <result column="dowi_alarm_count" jdbcType="INTEGER" property="dowiAlarmCount" />
+    <result column="delimiter_error_count" jdbcType="INTEGER" property="delimiterErrorCount" />
+    <result column="upbip_error_count" jdbcType="BIGINT" property="upbipErrorCount" />
+    <result column="downbip_error_count" jdbcType="BIGINT" property="downbipErrorCount" />
+    <result column="fec_block" jdbcType="BIGINT" property="fecBlock" />
+    <result column="fec_error_block" jdbcType="BIGINT" property="fecErrorBlock" />
+    <result column="fec_total_block" jdbcType="BIGINT" property="fecTotalBlock" />
+    <result column="up_fec_byte" jdbcType="BIGINT" property="upFecByte" />
+    <result column="hec_error_count" jdbcType="BIGINT" property="hecErrorCount" />
+    <result column="gem_count" jdbcType="BIGINT" property="gemCount" />
+    <result column="losi_alarm_count" jdbcType="INTEGER" property="losiAlarmCount" />
+    <result column="dgi_alarm_count" jdbcType="INTEGER" property="dgiAlarmCount" />
+  </resultMap>
+  <insert id="insert" parameterType="com.pojo.OnuLineQuality">
+    insert into onu_line_quality (id, dev_ip, port_name, 
+      collect_time, lofi_alarm_count, dowi_alarm_count, 
+      delimiter_error_count, upbip_error_count, downbip_error_count, 
+      fec_block, fec_error_block, fec_total_block, 
+      up_fec_byte, hec_error_count, gem_count, 
+      losi_alarm_count, dgi_alarm_count)
+    values (#{id,jdbcType=BIGINT}, #{devIp,jdbcType=VARCHAR}, #{portName,jdbcType=VARCHAR}, 
+      #{collectTime,jdbcType=TIMESTAMP}, #{lofiAlarmCount,jdbcType=INTEGER}, #{dowiAlarmCount,jdbcType=INTEGER}, 
+      #{delimiterErrorCount,jdbcType=INTEGER}, #{upbipErrorCount,jdbcType=BIGINT}, #{downbipErrorCount,jdbcType=BIGINT}, 
+      #{fecBlock,jdbcType=BIGINT}, #{fecErrorBlock,jdbcType=BIGINT}, #{fecTotalBlock,jdbcType=BIGINT}, 
+      #{upFecByte,jdbcType=BIGINT}, #{hecErrorCount,jdbcType=BIGINT}, #{gemCount,jdbcType=BIGINT}, 
+      #{losiAlarmCount,jdbcType=INTEGER}, #{dgiAlarmCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="batchInsert" parameterType="com.pojo.OnuLineQuality">
+       insert into ${tableName} (id, dev_ip, port_name, 
+      collect_time, lofi_alarm_count, dowi_alarm_count, 
+      delimiter_error_count, upbip_error_count, downbip_error_count, 
+      fec_block, fec_error_block, fec_total_block, 
+      up_fec_byte, hec_error_count, gem_count, 
+      losi_alarm_count, dgi_alarm_count)
+       values
+       <foreach collection="trafficDatas" item="trafficData" separator=",">
+           (#{trafficData.id,jdbcType=BIGINT}, #{trafficData.devIp,jdbcType=VARCHAR}, #{trafficData.portName,jdbcType=VARCHAR}, 
+      #{trafficData.collectTime,jdbcType=TIMESTAMP}, #{trafficData.lofiAlarmCount,jdbcType=INTEGER}, #{trafficData.dowiAlarmCount,jdbcType=INTEGER}, 
+      #{trafficData.delimiterErrorCount,jdbcType=INTEGER}, #{trafficData.upbipErrorCount,jdbcType=BIGINT}, #{trafficData.downbipErrorCount,jdbcType=BIGINT}, 
+      #{trafficData.fecBlock,jdbcType=BIGINT}, #{trafficData.fecErrorBlock,jdbcType=BIGINT}, #{trafficData.fecTotalBlock,jdbcType=BIGINT}, 
+      #{trafficData.upFecByte,jdbcType=BIGINT}, #{trafficData.hecErrorCount,jdbcType=BIGINT}, #{trafficData.gemCount,jdbcType=BIGINT}, 
+      #{trafficData.losiAlarmCount,jdbcType=INTEGER}, #{trafficData.dgiAlarmCount,jdbcType=INTEGER})
+       </foreach>
+   </insert>
+</mapper>
